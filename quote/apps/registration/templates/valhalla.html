@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="/logout"> Logout </a>
+    <H1> Welcome to Valhalla, {{ user.fname }} {{ user.lname }} Greatness awaits you</h1>
+    <a href="/valhalla/create"> Add a Quote </a>
+
+    <h2> Favorite Quotes </h2>
+    <table border=1>
+    <tr>
+        <th> Quote Creator </th>
+        <th> Message</th>
+        <th> Posted By </th>
+    </tr>
+
+
+    {%for quote in othersquotes %}
+
+    <tr>
+        <th>{{ quote.quotedby }}</th>
+        <th>{{ quote.message }}</th>
+        <th> <a href="valhalla/item/{{ quote.creator.id }}">{{ quote.creator.fname }} {{ quote.creator.lname}} </a></th>
+        <th>
+          <form action='/unwant/{{ quote.id }}' method='POST'>
+            {% csrf_token %}
+            <input type="hidden" name="hidden" id={{ quote.id }} value = {{ quote.id}} />
+            <input type="submit" value="Send the quotes back to the Shadow Realm">
+          </form>
+        </th>
+    </tr>
+    {%endfor%}
+
+    {%for quote in yourquotes %}
+
+    <tr>
+        <th>{{ quote.quotedby }}</th>
+        <th>{{ quote.message }}</th>
+        <th> <a href="valhalla/item/{{ quote.creator.id }}">{{ quote.creator.fname }} {{ quote.creator.lname}} </a> </th>
+        <th>
+          <form action='/delete' method='POST'>
+            {% csrf_token %}
+            <input type="hidden" name="hidden" id={{ quote.id }} value = {{ quote.id}} />
+            <input type="submit" value="Delete Forever">
+          </form>
+        </th>
+    </tr>
+    {%endfor%}
+  </table>
+  <h2> Favorite other peoples Quotes! </h2>
+  <table border=1>
+    <tr>
+        <th>Quote Creator </th>
+        <th>Message</th>
+        <th> Posted By </th>
+    </tr>
+
+  {% for quote in unclaimed %}
+  {% if quote.creator.id != request.session.user_id %}
+  <tr>
+      <th>{{ quote.quotedby }}</th>
+      <th> {{ quote.message }}</th>
+      <th> <a href="valhalla/item/{{ quote.creator.id }}">{{ quote.creator.fname }} {{ quote.creator.lname}} </a></th>
+      <th>
+        <form action='/join/{{ quote.creator.id }}' method='POST'>
+          {% csrf_token %}
+          <input type="hidden" name="hidden" id={{ quote.id }} value = {{ quote.id}} />
+          <input type="submit" value="Rescue from the shadow realm">
+        </form>
+      </th>
+  </tr>
+  {% endif %}
+  {% endfor %}
+</table>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="/logout"> Logout </a>
+    <br>
+    <a href="/valhalla"> Home </a>
+    <h1> Submission History </h1>
+    <h3> Count: {{ total }} </h3>
+
+    {% for quote in quote %}
+    <h3> Created By {{ quote.creator.fname}} {{ quote.creator.lname }}: "{{ quote.message}}" - {{ quote.quotedby }} </h3>
+    {% endfor %}
+    <ul>
+    </ul>
+  </body>
+</html>

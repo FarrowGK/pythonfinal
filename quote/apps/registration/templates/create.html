@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Items</title>
+</head>
+<body>
+  <h2>Add items</h2>
+  <form action='/create' method='POST'>
+    {% csrf_token %}
+    <label for="quote">Enter the Quote Creator:<input type="text" name="quote" id="quote"></label><br>
+    <label for="message">Enter the Message:<input type="text" name="message" id="message"></label>
+    <input type="submit" value="Add Quote">
+  </form>
+  <form action='/valhalla'>
+    <input type="submit" value="Home">
+  </form>
+  <form action='/logout'>
+    <input type="submit" value="Logout">
+  </form>
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li> {{ message }} </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

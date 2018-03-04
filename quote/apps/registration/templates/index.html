@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Validate</title>
+</head>
+<body>
+  <h2>Registration</h2>
+  <form action='/register' method='POST'>
+    {% csrf_token %}
+    <label for="fname">First Name:<input type="text" name="fname" id="fname"></label><br>
+    <label for="lname">Last Name:<input type="text" name="lname" id="lname"></label><br>
+    <label for="email">Email: <input type="text" name="email" id="email"></label><br>
+    <label for="password">Password:<input type="password" name="password" id="password"></label><br>
+    <label for="conpassword">Confirm Password:<input type="password" name="conpassword" id="conpassword"></label><br>
+    <label for="dob"> Date Hired <input type="date" name="dob">
+    <input type="submit" value="Register">
+  </form>
+      <h2>Login</h2>
+      <form action='/login' method='POST'>
+        {% csrf_token %}
+        <label for="email">Username:<input type="text" name="email" id="email"></label>
+        <label for="password">Password:<input type="password" name="password" id="password"></label>
+        <input type="submit" value="Login">
+      </form>
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li> {{ message }} </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
